@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details - LuxDrive</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .car-main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .booking-form {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            border-color: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            border-color: #128C7E;
+            color: white;
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .thumbnail-image:hover {
+            opacity: 0.8;
+        }
+
+        .specs-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <strong>LuxDrive</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#cars">Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <!-- Car Images and Details -->
+            <div class="col-lg-8">
+                <div id="carMainImage" class="mb-4">
+                    <!-- Main image will be inserted here by JavaScript -->
+                </div>
+                
+                <h1 id="carName" class="mb-4"></h1>
+                
+                <div class="specs-box">
+                    <h4>Car Specifications</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="feature-list" id="carSpecs">
+                                <!-- Specs will be inserted here by JavaScript -->
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="feature-list">
+                                <li>24/7 Roadside Assistance</li>
+                                <li>Comprehensive Insurance</li>
+                                <li>Unlimited Mileage</li>
+                                <li>Free Cancellation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h4>Description</h4>
+                    <p id="carDescription" class="lead"></p>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="col-lg-4">
+                <div class="booking-form">
+                    <h3 class="mb-4">Book This Car</h3>
+                    <div class="mb-4 text-center">
+                        <div class="price-tag" id="carPrice"></div>
+                        <small class="text-muted">per day</small>
+                    </div>
+                    
+                    <form id="bookingForm">
+                        <input type="hidden" id="selectedCar" name="carName">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Pick-up Date</label>
+                            <input type="date" class="form-control" name="pickupDate" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Return Date</label>
+                            <input type="date" class="form-control" name="returnDate" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="fullName" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control" name="phone" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-whatsapp w-100">
+                            <i class="fab fa-whatsapp me-2"></i>Book via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>About LuxDrive</h5>
+                    <p>Premium car rental service providing luxury and comfort for all your driving needs.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">Home</a></li>
+                        <li><a href="index.html#cars" class="text-white">Cars</a></li>
+                        <li><a href="index.html#contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Connect With Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Car database
+        const carData = {
+            'mercedes': {
+                name: 'Mercedes-Benz S-Class',
+                price: '$200',
+                image: 'https://images.unsplash.com/photo-1555652736-e92021d28a10?auto=format&fit=crop&w=800&q=80',
+                description: 'Experience ultimate luxury with the Mercedes-Benz S-Class. This flagship sedan combines exceptional comfort with cutting-edge technology and powerful performance.',
+                specs: [
+                    'Engine: 3.0L V6 Turbo',
+                    'Power: 429 hp',
+                    'Transmission: 9-speed automatic',
+                    'Acceleration: 0-60 mph in 4.9s',
+                    'Premium Sound System',
+                    'Panoramic Sunroof'
+                ]
+            },
+            'bmw': {
+                name: 'BMW M4',
+                price: '$250',
+                image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80',
+                description: 'The BMW M4 delivers exhilarating performance with its powerful engine, precise handling, and sophisticated design. Perfect for those who appreciate both luxury and sportiness.',
+                specs: [
+                    'Engine: 3.0L Twin-Turbo I6',
+                    'Power: 473 hp',
+                    'Transmission: 6-speed manual',
+                    'Acceleration: 0-60 mph in 4.1s',
+                    'Sport Exhaust System',
+                    'M Sport Differential'
+                ]
+            },
+            'range-rover': {
+                name: 'Range Rover Sport',
+                price: '$300',
+                image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
+                description: 'The Range Rover Sport combines luxury with exceptional off-road capability. Enjoy supreme comfort whether driving in the city or exploring rough terrain.',
+                specs: [
+                    'Engine: 5.0L V8 Supercharged',
+                    'Power: 518 hp',
+                    'Transmission: 8-speed automatic',
+                    'All-Wheel Drive',
+                    'Terrain Response 2',
+                    'Air Suspension'
+                ]
+            }
+        };
+
+        // Get car ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = urlParams.get('car');
+        
+        // Load car details
+        if (carData[carId]) {
+            const car = carData[carId];
+            
+            // Set car details
+            document.getElementById('carMainImage').innerHTML = `
+                <img src="${car.image}" alt="${car.name}" class="car-main-image">
+            `;
+            document.getElementById('carName').textContent = car.name;
+            document.getElementById('carPrice').textContent = car.price;
+            document.getElementById('carDescription').textContent = car.description;
+            document.getElementById('selectedCar').value = car.name;
+            
+            // Set specifications
+            const specsList = document.getElementById('carSpecs');
+            specsList.innerHTML = car.specs.map(spec => `<li>${spec}</li>`).join('');
+        }
+
+        // Booking form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const car = carData[carId];
+            
+            // Create WhatsApp message
+            const message = `*New Car Rental Request*%0A
+------------------------------%0A
+*Car:* ${car.name}%0A
+*Daily Rate:* ${car.price}%0A
+*Pick-up Date:* ${formData.get('pickupDate')}%0A
+*Return Date:* ${formData.get('returnDate')}%0A
+%0A*Customer Details:*%0A
+- Name: ${formData.get('fullName')}%0A
+- Email: ${formData.get('email')}%0A
+- Phone: ${formData.get('phone')}%0A
+------------------------------%0A`;
+
+            // Your WhatsApp business number
+            const whatsappNumber = '923089850893'; // Replace with your actual WhatsApp number
+            
+            // Open WhatsApp with pre-filled message
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        });
+
+        // Set minimum date for date inputs
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        const today = new Date().toISOString().split('T')[0];
+        dateInputs.forEach(input => {
+            input.min = today;
+        });
+    </script>
+</body>
+</html>
